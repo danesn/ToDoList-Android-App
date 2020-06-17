@@ -28,14 +28,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String createTableStatement = "CREATE TABLE " + TODOLIST_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_TITLE + " TEXT, " + COLUMN_DETAIL + " TEXT, " + COLUMN_DATE + " TEXT);";
         db.execSQL(createTableStatement);
-
-        String sql = "INSERT INTO " +TODOLIST_TABLE+ " (" +COLUMN_TITLE+ ", " +COLUMN_DETAIL+ ", " +COLUMN_DATE+ ") VALUES ('titletes', 'contohdetail', 'besok');";
-
-        db.execSQL(sql);
-
-        sql = "INSERT INTO " +TODOLIST_TABLE+ " (" +COLUMN_TITLE+ ", " +COLUMN_DETAIL+ ", " +COLUMN_DATE+ ") VALUES ('asdasd', 'qweqwqweqweqwqweqe', 'bqwewqeqweqesok');";
-
-        db.execSQL(sql);
     }
 
 
