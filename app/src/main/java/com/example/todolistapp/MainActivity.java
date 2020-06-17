@@ -1,10 +1,13 @@
 package com.example.todolistapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -77,7 +80,45 @@ public class MainActivity extends AppCompatActivity {
         recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
         toDoListAdapter = new ToDoListAdapter(MainActivity.this, (ArrayList<ToDoListModel>) databaseHelper.getEveryone());
         recyclerViewItems.setAdapter(toDoListAdapter);
+
+
+        // implement onclickitemlistener
+        toDoListAdapter.setOnItemClickCallback(new ToDoListAdapter.OnItemClickCallback() {
+            @Override
+            public void onItemClicked(final ToDoListModel toDoListModel) {
+
+                final CharSequence[] dialogitem = {"Edit", "Delete"};
+
+                // alert dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Choose");
+                builder.setItems(dialogitem, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        switch (item) {
+                            case 0:
+                                Intent intent = new Intent(getApplicationContext(), UpdateToDoListActivity.class);
+                                intent.putExtra("id", toDoListModel.getId());
+                                startActivity(intent);
+                                break;
+                            case 1:
+                                databaseHelper.deleteOne(toDoListModel);
+                                Toast.makeText(getApplicationContext(), "Success deleted todo", Toast.LENGTH_SHORT).show();
+                                showToDoOnRecyclerView();
+                                showCountTasks();
+                                break;
+                        }
+                    }
+                });
+                builder.create().show();
+            }
+        });
+
         toDoListAdapter.notifyDataSetChanged();
 
+    }
+
+    private void showSelectedDataDebug(ToDoListModel toDoListModel) {
+        Toast.makeText(this, "You chose " + toDoListModel.getId() + " title:" + toDoListModel.getTitleToDoList(), Toast.LENGTH_SHORT).show();
     }
 }

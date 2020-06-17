@@ -42,7 +42,7 @@ public class NewToDoListActivity extends AppCompatActivity {
                     databaseHelper = new DatabaseHelper(getApplicationContext());
 
                     boolean isSuccess = databaseHelper.addOne(toDoListModel);
-                    Toast.makeText(getApplicationContext(), isSuccess+ " added new todo", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Success added new todo", Toast.LENGTH_SHORT).show();
 
                     MainActivity.ma.showCountTasks();
                     MainActivity.ma.showToDoOnRecyclerView();

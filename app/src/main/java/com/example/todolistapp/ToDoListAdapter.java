@@ -28,10 +28,20 @@ public class ToDoListAdapter extends RecyclerView.Adapter<ToDoListAdapter.MyView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int position) {
+    public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int position) {
+
+
         myViewHolder.titleToDoList.setText(toDoList.get(position).getTitleToDoList());
         myViewHolder.descToDoList.setText(toDoList.get(position).getDescToDoList());
         myViewHolder.dateToDoList.setText(toDoList.get(position).getDateToDoList());
+
+        //onclick Item
+        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickCallback.onItemClicked(toDoList.get(myViewHolder.getAdapterPosition()));
+            }
+        });
     }
 
     @Override
@@ -52,6 +62,21 @@ public class ToDoListAdapter extends RecyclerView.Adapter<ToDoListAdapter.MyView
 
 
         }
+    }
+
+
+
+
+    // Onclickitemlistener interface
+    public interface OnItemClickCallback {
+        void onItemClicked(ToDoListModel toDoListModel);
+    }
+
+    private OnItemClickCallback onItemClickCallback;
+
+    // Onclickitemlistener method
+    public void setOnItemClickCallback(OnItemClickCallback onItemClickCallback){
+        this.onItemClickCallback = onItemClickCallback;
     }
 
 }

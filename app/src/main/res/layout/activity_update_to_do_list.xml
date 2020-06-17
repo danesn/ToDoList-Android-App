@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/rubikmedium"
                 android:layout_centerHorizontal="true"
-                android:text="Update New To Do"
+                android:text="Edit To Do"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:layout_marginTop="55dp"/>
@@ -56,7 +56,7 @@
 
             <TextView
                 android:layout_gravity="center"
-                android:text="Update To Do"
+                android:text="Edit your To Do"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:fontFamily="@font/rubikmedium"
@@ -65,7 +65,7 @@
                 android:layout_marginBottom="16dp"/>
 
             <TextView
-                android:text="Add title"
+                android:text="Edit title"
                 android:textSize="16sp"
                 android:textColor="@color/blackChild"
                 android:fontFamily="@font/rubikregular"
@@ -74,6 +74,7 @@
                 android:layout_marginBottom="12dp"/>
 
             <EditText
+                android:id="@+id/edtUpdateTitle"
                 android:maxLength="30"
                 android:lines="1"
                 android:hint="What you do?"
@@ -85,7 +86,7 @@
                 android:background="@drawable/bginputtodo"/>
 
             <TextView
-                android:text="Add describe"
+                android:text="Edit describe"
                 android:textSize="16sp"
                 android:textColor="@color/blackChild"
                 android:fontFamily="@font/rubikregular"
@@ -95,6 +96,7 @@
                 android:layout_marginTop="20dp"/>
 
             <EditText
+                android:id="@+id/edtUpdateDesc"
                 android:hint="What detail you do?"
                 android:textColorHint="#B5B5B5"
                 android:textColor="#000C5D"
@@ -104,7 +106,7 @@
                 android:background="@drawable/bginputtodo"/>
 
             <TextView
-                android:text="Add date"
+                android:text="Edit date"
                 android:textSize="16sp"
                 android:textColor="@color/blackChild"
                 android:fontFamily="@font/rubikregular"
@@ -114,6 +116,7 @@
                 android:layout_marginTop="20dp"/>
 
             <EditText
+                android:id="@+id/edtUpdateDate"
                 android:maxLength="22"
                 android:lines="1"
                 android:hint="What date you do?"
@@ -127,12 +130,13 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/buttonUpdateToDo"
             android:elevation="4dp"
             android:layout_marginTop="20dp"
             android:textAllCaps="false"
             android:fontFamily="@font/rubikmedium"
             android:textSize="18sp"
-            android:text="Add task"
+            android:text="Update task"
             android:textColor="@color/white"
             android:background="@drawable/btnblue"
             android:layout_width="342dp"

@@ -4,11 +4,11 @@ public class ToDoListModel {
     int id;
     String titleToDoList, dateToDoList, descToDoList;
 
-    public ToDoListModel(int id, String titleToDoList, String dateToDoList, String descToDoList) {
+    public ToDoListModel(int id, String titleToDoList, String descToDoList, String dateToDoList) {
         this.id = id;
         this.titleToDoList = titleToDoList;
-        this.dateToDoList = dateToDoList;
         this.descToDoList = descToDoList;
+        this.dateToDoList = dateToDoList;
     }
 
     public int getId() {

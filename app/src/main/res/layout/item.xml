@@ -50,11 +50,11 @@
 
 
     <TextView
+        android:id="@+id/dateToDoList"
         android:layout_marginRight="10dp"
         android:gravity="right"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
-        android:id="@+id/dateToDoList"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/rubikmedium"

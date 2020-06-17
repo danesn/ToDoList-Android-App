@@ -66,11 +66,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-//    public boolean updateOne(ToDoListModel toDoListModel) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor cursor = db.rawQuery("SELECT * FROM " +TODOLIST_TABLE+ " WHERE " +COLUMN_ID+ " = " )
-//    }
-
     public boolean addOne(ToDoListModel toDoListModel) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
