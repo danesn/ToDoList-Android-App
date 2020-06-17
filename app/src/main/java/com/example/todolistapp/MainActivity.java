@@ -6,54 +6,40 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerViewItems;
-    ArrayList<ToDoListModel> list;
     ToDoListAdapter toDoListAdapter;
     ImageButton addButton;
+    List<ToDoListModel> listToDo;
+    TextView tvCountTask;
 
+    DatabaseHelper databaseHelper;
 
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         addButton = findViewById(R.id.addButton);
-
         recyclerViewItems = findViewById(R.id.recyclerViewItems);
-        recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
-        list = new ArrayList<ToDoListModel>();
 
-        ToDoListModel alan = new ToDoListModel("asdasdsa", "qwewqe", "popopo");
-        ToDoListModel asd = new ToDoListModel("wer", "vbmn", "hjk");
+        databaseHelper = new DatabaseHelper(MainActivity.this);
 
-        ToDoListModel alan1 = new ToDoListModel("asdasdsa", "qwewqe", "popopo");
-        ToDoListModel asd1 = new ToDoListModel("wer", "vbmn", "hjk");
-
-        ToDoListModel alan2 = new ToDoListModel("asdasdsa", "qwewqe", "popopo");
-        ToDoListModel asd2 = new ToDoListModel("wer", "vbmn", "hjk");
-
-        list.add(alan);
-        list.add(asd);
-
-        list.add(alan1);
-        list.add(asd1);
-
-        list.add(alan2);
-        list.add(asd2);
-
-
-        toDoListAdapter = new ToDoListAdapter(MainActivity.this, list);
-        recyclerViewItems.setAdapter(toDoListAdapter);
-        toDoListAdapter.notifyDataSetChanged();
-
+        showToDoOnRecyclerView();
+        showCountTasks();
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +48,36 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+    }
+
+    private void showCountTasks() {
+        List<ToDoListModel> ambilData = new ArrayList<>();
+
+        ambilData = databaseHelper.getEveryone();
+        int besarJumlahToDo = ambilData.size();
+        String hasilJumlahTodo = String.valueOf(besarJumlahToDo);
+        Toast.makeText(this, hasilJumlahTodo, Toast.LENGTH_SHORT).show();
+
+        tvCountTask = findViewById(R.id.tvCountTask);
+        if (besarJumlahToDo == 1) {
+            tvCountTask.setText("Today you have " +besarJumlahToDo+ " task");
+        }
+        else if (besarJumlahToDo > 1){
+            tvCountTask.setText("Today you have " +besarJumlahToDo+ " tasks");
+        }
+        else {
+            tvCountTask.setText("Today you have no tasks");
+        }
+    }
+
+
+    private void showToDoOnRecyclerView() {
+
+        recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
+        toDoListAdapter = new ToDoListAdapter(MainActivity.this, (ArrayList<ToDoListModel>) databaseHelper.getEveryone());
+        recyclerViewItems.setAdapter(toDoListAdapter);
+        toDoListAdapter.notifyDataSetChanged();
 
     }
 }
