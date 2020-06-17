@@ -26,13 +26,15 @@ public class MainActivity extends AppCompatActivity {
     TextView tvCountTask;
 
     DatabaseHelper databaseHelper;
+    public static MainActivity ma;
 
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ma = this;
         addButton = findViewById(R.id.addButton);
         recyclerViewItems = findViewById(R.id.recyclerViewItems);
 
@@ -51,20 +53,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void showCountTasks() {
-        List<ToDoListModel> ambilData = new ArrayList<>();
+    public void showCountTasks() {
+        List<ToDoListModel> takeData = new ArrayList<>();
 
-        ambilData = databaseHelper.getEveryone();
-        int besarJumlahToDo = ambilData.size();
-        String hasilJumlahTodo = String.valueOf(besarJumlahToDo);
-        Toast.makeText(this, hasilJumlahTodo, Toast.LENGTH_SHORT).show();
+        takeData = databaseHelper.getEveryone();
+        int amountOfToDoList = takeData.size();
 
         tvCountTask = findViewById(R.id.tvCountTask);
-        if (besarJumlahToDo == 1) {
-            tvCountTask.setText("Today you have " +besarJumlahToDo+ " task");
+        if (amountOfToDoList == 1) {
+            tvCountTask.setText("Today you have " +amountOfToDoList+ " task");
         }
-        else if (besarJumlahToDo > 1){
-            tvCountTask.setText("Today you have " +besarJumlahToDo+ " tasks");
+        else if (amountOfToDoList > 1){
+            tvCountTask.setText("Today you have " +amountOfToDoList+ " tasks");
         }
         else {
             tvCountTask.setText("Today you have no tasks");
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void showToDoOnRecyclerView() {
+    public void showToDoOnRecyclerView() {
 
         recyclerViewItems.setLayoutManager(new LinearLayoutManager(this));
         toDoListAdapter = new ToDoListAdapter(MainActivity.this, (ArrayList<ToDoListModel>) databaseHelper.getEveryone());

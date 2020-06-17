@@ -74,6 +74,7 @@
                 android:layout_marginBottom="12dp"/>
 
             <EditText
+                android:id="@+id/edtTitle"
                 android:maxLength="30"
                 android:lines="1"
                 android:hint="What you do?"
@@ -95,6 +96,7 @@
                 android:layout_marginTop="20dp"/>
 
             <EditText
+                android:id="@+id/edtDesc"
                 android:hint="What detail you do?"
                 android:textColorHint="#B5B5B5"
                 android:textColor="#000C5D"
@@ -114,6 +116,7 @@
                 android:layout_marginTop="20dp"/>
 
             <EditText
+                android:id="@+id/edtDate"
                 android:maxLength="22"
                 android:lines="1"
                 android:hint="What date you do?"
@@ -127,6 +130,7 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/buttonAddToDo"
             android:elevation="4dp"
             android:layout_marginTop="20dp"
             android:textAllCaps="false"
