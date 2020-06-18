@@ -11,11 +11,16 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    // TABLE TODOLIST
     public static final String TODOLIST_TABLE = "TODOLIST_TABLE";
     public static final String COLUMN_ID = "ID";
     public static final String COLUMN_TITLE = "TITLE";
     public static final String COLUMN_DETAIL = "DETAIL";
     public static final String COLUMN_DATE = "DATE";
+
+    //TABLE USER
+    public static final String USER_TABLE = "USER_TABLE";
+    public static final String COLUMN_NAME = "NAME";
 
 
     public DatabaseHelper(Context context) {
@@ -26,8 +31,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // called first time a database is accessed.
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+        //create table todolist
         String createTableStatement = "CREATE TABLE " + TODOLIST_TABLE + " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_TITLE + " TEXT, " + COLUMN_DETAIL + " TEXT, " + COLUMN_DATE + " TEXT);";
         db.execSQL(createTableStatement);
+
+        // create table user
+        createTableStatement = "CREATE TABLE " + USER_TABLE + " (" + COLUMN_NAME + " TEXT);";
+        db.execSQL(createTableStatement);
+
+
     }
 
 

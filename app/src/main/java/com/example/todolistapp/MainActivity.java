@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
     ToDoListAdapter toDoListAdapter;
     ImageButton addButton;
     List<ToDoListModel> listToDo;
-    TextView tvCountTask;
+    TextView tvCountTask, tvName;
+    RelativeLayout viewNoTasks;
 
     DatabaseHelper databaseHelper;
     public static MainActivity ma;
@@ -40,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         ma = this;
         addButton = findViewById(R.id.addButton);
         recyclerViewItems = findViewById(R.id.recyclerViewItems);
+        viewNoTasks = findViewById(R.id.noTasksView);
+        tvName = findViewById(R.id.tvName);
 
         databaseHelper = new DatabaseHelper(MainActivity.this);
 
@@ -54,6 +59,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        //Check name user
+        SQLiteDatabase db = databaseHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM USER_TABLE;", null);
+
+        cursor.moveToFirst();
+        if (cursor.getCount()>0) {
+            cursor.moveToPosition(0);
+
+            //set name into edittext
+            tvName.setText("Hello " +cursor.getString(0).toString()+ "!");
+        }
+
     }
 
     public void showCountTasks() {
@@ -65,12 +83,19 @@ public class MainActivity extends AppCompatActivity {
         tvCountTask = findViewById(R.id.tvCountTask);
         if (amountOfToDoList == 1) {
             tvCountTask.setText("Today you have " +amountOfToDoList+ " task");
+            viewNoTasks.setVisibility(View.GONE);
+            recyclerViewItems.setVisibility(View.VISIBLE);
         }
         else if (amountOfToDoList > 1){
             tvCountTask.setText("Today you have " +amountOfToDoList+ " tasks");
+            viewNoTasks.setVisibility(View.GONE);
+            recyclerViewItems.setVisibility(View.VISIBLE);
         }
         else {
             tvCountTask.setText("Today you have no tasks");
+            viewNoTasks.setVisibility(View.VISIBLE);
+            recyclerViewItems.setVisibility(View.GONE);
+
         }
     }
 
